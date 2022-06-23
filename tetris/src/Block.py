@@ -1,33 +1,21 @@
+from Box import Box
+from Point import Point
+from Shape import Shape
+
+
 class Block:
-
-    def __init__(self, label, matrix, color):
-        self.label = label
-        self.matrix = matrix # matrice 4x4 de boolean: si c'est une ligne -> 
-        # true, false, false ,false
-        # true, false, false, false
-        # true, false, false, false
-        # true, false, false, false
-        self.color = None
-        self.topLeftPos = 10
-
-    def getBoxesPos(self):
-        boxes = []
-
-        rowIndex = 0
-        for row in self.matrix:
-            rowIndex += 1
-
-            columnIndex = 0
-            for item in row:
-                
+    def __init__(self, shape:Shape, topLeftBox:Box) -> None:
+        # shape -> forme du block
         
-        return boxes
+        self.boxes: list[Box] = []
 
-    def moveLeft(self):
-        pass
+        if (shape == Shape.I):
+            x = topLeftBox.topLeft.getX()
+            y = topLeftBox.topLeft.getY()
+            size = topLeftBox.size
 
-    def moveRight(self):
-        pass
-    
-    def moveDown(self):
-        pass
+            # pour i allant de topGauche jusque topGauche + 4 * la taille d'un block
+            for countY in range(y, y + (size * 4), size):
+                self.boxes.append(
+                    Box(Point(x, countY))
+                )
