@@ -8,6 +8,7 @@ class Block:
         # shape -> forme du block
         
         self.boxes: list[Box] = []
+        self.shape = shape
 
         if (shape == Shape.I):
             x = topLeftBox.topLeft.getX()
@@ -19,3 +20,17 @@ class Block:
                 self.boxes.append(
                     Box(Point(x, countY))
                 )
+
+    def moveX(self, xToAdd: int) -> None:
+        for box in self.boxes:
+            box.moveX(xToAdd)
+
+    def moveY(self, yToAdd: int) -> None:
+        for box in self.boxes:
+            box.moveY(yToAdd)
+
+    def __str__(self) -> str:
+        temp: str = self.shape.__str__() + ": \n"
+        for box in self.boxes:
+            temp += box.__str__() + "\n"
+        return temp

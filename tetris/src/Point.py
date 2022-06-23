@@ -10,7 +10,10 @@ class Point:
         return self.y
     
     def moveX(self, xToAdd:int) -> None:
-        x += xToAdd
+        self.x += xToAdd
 
     def moveY(self, yToAdd:int) -> None:
-        y += yToAdd
+        self.y += yToAdd
+
+    def __str__(self) -> str:
+        return self.x.__str__() + ", " + self.y.__str__()
