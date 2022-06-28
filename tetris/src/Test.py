@@ -1,32 +1,16 @@
 from Block import Block
-from Box import Box
 from Point import Point
 from Shape import Shape
 
+
 if __name__ == "__main__":
-    # box test
-    # box:Box = Box(Point(5, 5))
+    i_block = Block(Point(0, 0), Shape.I)
 
-    # print(box)
+    for rect in i_block.rects:
+        print(rect)
 
-    # box.moveX(10)
-    # box.moveY(10)
+    i_block.moveDown()
 
-    # print(box)
+    for rect in i_block.rects:
+        print(rect)
 
-    # I
-    i_block = Block(Shape.I, Box(Point(0, 0)))
-
-    print(i_block)
-
-    i_block.moveY(5)
-
-    print(i_block)
-
-    # print("I: ")
-    # for box in i_block.boxes:
-    #     print("-> " + box.topLeft.getX().__str__() + ", " + box.topLeft.getY().__str__())
-
-    
-
-    # 
