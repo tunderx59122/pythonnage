@@ -1,11 +1,10 @@
-from tarfile import BLOCKSIZE
-from tkinter import W
 import pygame
 from pygame.locals import *
 
 from Block import Block
 from Point import Point
 from Shape import Shape
+from Grid import Grid
 
 pygame.init()
 
@@ -15,22 +14,24 @@ BLACK = (0, 0, 0)
 
 # settings
 BOX_SIZE = 50
-GRID_SIZE = (10, 20) # 10 de large, 20 de haut
+WIDTH = 10 # en nbr de box sur l'ecran
+HEIGHT = 15
 SPEED = 1000 # vitesse du deplacement vertical du block
 
+grid: Grid = Grid(BOX_SIZE, WIDTH, HEIGHT)
+
+
 # window
-WIDTH, HEIGHT = BOX_SIZE * 10, BOX_SIZE * 10
-WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
+WINDOW = pygame.display.set_mode((grid.getScreenWidth(), grid.getScreenHeight()))
 pygame.display.set_caption("Tetris")
 
 
 # rects
-rectangle: Rect = pygame.Rect(10, 10, BOX_SIZE, BOX_SIZE)
-move_x: int = 50
+# rectangle: Rect = pygame.Rect(10, 10, BOX_SIZE, BOX_SIZE)
+# move_x: int = 50
 
 # block
 i_block = Block(Point(0, 0), Shape.I)
-
 
 def main():
     # start_time = int(time())
@@ -44,15 +45,21 @@ def main():
 
         # block principal
         i_block.display(WINDOW, BLACK)
+
+        grid.displayLines(WINDOW)
+
+        # tout les x sec: descendre le block
         if (time == 0):
-            if (i_block.canMoveDown(HEIGHT)):
+            if (i_block.canMoveDown(grid)):
                 i_block.moveDown()
+            else:
+                # ground tout les rects du block O sol
+                i_block.ground(grid)
 
         # events
         for event in pygame.event.get():
             # keys
             if (event.type == pygame.KEYDOWN):
-                print("KEYDOWN")
                 if (event.key == pygame.K_q):
                     if (i_block.canMoveLeft(WIDTH)):
                         i_block.moveLeft()

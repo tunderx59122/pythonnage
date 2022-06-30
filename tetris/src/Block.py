@@ -3,6 +3,7 @@ from pygame.locals import *
 
 from Point import Point
 from Shape import Shape
+from Grid import Grid
 
 
 class Block:
@@ -21,13 +22,10 @@ class Block:
             # pygame.draw.rect(WINDOW, color, rect)
             pygame.draw.rect(WINDOW, color, rect, width = 2, border_radius = 2, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1)
 
-    def moveDown(self) -> None:
-        for rect in self.rects:
-            rect.y += self.boxSize
         
-    def canMoveDown(self, HEIGHT) -> bool:
+    def canMoveDown(self, grid: Grid) -> bool:
         for rect in self.rects:
-            if (rect.y + self.boxSize >= HEIGHT):
+            if (rect.y + self.boxSize >= grid.getScreenHeight()):
                 return False
         return True
 
@@ -43,6 +41,10 @@ class Block:
                 return False
         return True
 
+    def moveDown(self) -> None:
+        for rect in self.rects:
+            rect.y += self.boxSize
+
     def moveRight(self) -> None:
         for rect in self.rects:
             rect.x += self.boxSize
@@ -50,3 +52,8 @@ class Block:
     def moveLeft(self) -> None:
         for rect in self.rects:
             rect.x -= self.boxSize
+
+    def ground(self, grid: Grid) -> None: # pose le block O sol quand il peut plus descendre
+        for rect in self.rects:
+            grid.groudedRects.append(rect)
+        self.rects.clear()
