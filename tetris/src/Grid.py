@@ -1,6 +1,10 @@
 from pygame import *
 import pygame
 
+# from Block import Block
+# from Point import Point
+# from Shape import Shape
+
 BLACK = (0, 0, 0)
 
 class Grid:
@@ -27,3 +31,7 @@ class Grid:
         # TODO
         for rect in self.groudedRects:
             pygame.draw.rect(WINDOW, color, rect, width = 2, border_radius = 2, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1)
+    
+    # def generateRandomBlock(self, coords: Point) -> Block:
+    #     # for shape in Shape.at
+    #     pass

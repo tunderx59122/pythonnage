@@ -47,7 +47,7 @@ def main():
         grid.displayLines(WINDOW, BLACK)
         grid.displayRects(WINDOW, BLACK)
 
-        # block principal
+        # current block
         i_block.display(WINDOW, BLACK)
 
 

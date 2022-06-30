@@ -1,4 +1,5 @@
 from enum import Enum
+from random import shuffle
 
 class Shape(Enum):
     # enum des differentes formes de blocks
@@ -10,3 +11,16 @@ class Shape(Enum):
     S = 4
     T = 5
     Z = 6
+
+    def getRandomShape():
+        shapes: list[Shape] = list()
+        shapes.append(Shape.I)
+        shapes.append(Shape.J)
+        shapes.append(Shape.L)
+        shapes.append(Shape.O)
+        shapes.append(Shape.S)
+        shapes.append(Shape.T)
+        shapes.append(Shape.Z)
+
+        shuffle(shapes)
+        return shapes[0]
