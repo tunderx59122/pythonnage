@@ -1,3 +1,5 @@
+from tarfile import BLOCKSIZE
+from tkinter import W
 import pygame
 from pygame.locals import *
 
@@ -11,15 +13,16 @@ pygame.init()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-# window
-WIDTH, HEIGHT = 900, 500
-WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Tetris")
-
 # settings
 BOX_SIZE = 50
 GRID_SIZE = (10, 20) # 10 de large, 20 de haut
 SPEED = 1000 # vitesse du deplacement vertical du block
+
+# window
+WIDTH, HEIGHT = BOX_SIZE * 10, BOX_SIZE * 10
+WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Tetris")
+
 
 # rects
 rectangle: Rect = pygame.Rect(10, 10, BOX_SIZE, BOX_SIZE)
@@ -42,7 +45,8 @@ def main():
         # block principal
         i_block.display(WINDOW, BLACK)
         if (time == 0):
-            i_block.moveDown()
+            if (i_block.canMoveDown(HEIGHT)):
+                i_block.moveDown()
 
         # events
         for event in pygame.event.get():
@@ -50,11 +54,11 @@ def main():
             if (event.type == pygame.KEYDOWN):
                 print("KEYDOWN")
                 if (event.key == pygame.K_q):
-                    # rectangle.x -= BOX_SIZE
-                    i_block.moveLeft()
+                    if (i_block.canMoveLeft(WIDTH)):
+                        i_block.moveLeft()
                 if (event.key == pygame.K_d):
-                    # rectangle.x += BOX_SIZE
-                    i_block.moveRight()
+                    if (i_block.canMoveRight(WIDTH)):
+                        i_block.moveRight()
 
             # quit
             if event.type == pygame.QUIT:

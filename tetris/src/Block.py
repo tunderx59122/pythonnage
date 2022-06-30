@@ -24,11 +24,29 @@ class Block:
     def moveDown(self) -> None:
         for rect in self.rects:
             rect.y += self.boxSize
+        
+    def canMoveDown(self, HEIGHT) -> bool:
+        for rect in self.rects:
+            if (rect.y + self.boxSize >= HEIGHT):
+                return False
+        return True
+
+    def canMoveRight(self, WIDTH: int) -> bool:
+        for rect in self.rects:
+            if (rect.x + self.boxSize >= WIDTH):
+                return False
+        return True
+
+    def canMoveLeft(self, WIDTH: int) -> bool:
+        for rect in self.rects:
+            if (rect.x <= 0):
+                return False
+        return True
 
     def moveRight(self) -> None:
         for rect in self.rects:
             rect.x += self.boxSize
-    
+
     def moveLeft(self) -> None:
         for rect in self.rects:
             rect.x -= self.boxSize
