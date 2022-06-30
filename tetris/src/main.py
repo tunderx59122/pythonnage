@@ -43,10 +43,13 @@ def main():
         # main displaying
         WINDOW.fill(WHITE)
 
+        # affichage du terr1: lignes + blocks grounded
+        grid.displayLines(WINDOW, BLACK)
+        grid.displayRects(WINDOW, BLACK)
+
         # block principal
         i_block.display(WINDOW, BLACK)
 
-        grid.displayLines(WINDOW)
 
         # tout les x sec: descendre le block
         if (time == 0):
@@ -55,6 +58,7 @@ def main():
             else:
                 # ground tout les rects du block O sol
                 i_block.ground(grid)
+
 
         # events
         for event in pygame.event.get():

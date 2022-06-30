@@ -17,12 +17,13 @@ class Grid:
     def getScreenHeight(self) -> int:
         return self.height * self.boxSize
 
-    def displayLines(self, WINDOW: Surface) -> None:
+    def displayLines(self, WINDOW: Surface, color) -> None:
         for row in range(0, self.height): # 0 a 15
-            pygame.draw.line(WINDOW, BLACK, (0, row * self.boxSize), (self.getScreenWidth(), row * self.boxSize))
+            pygame.draw.line(WINDOW, color, (0, row * self.boxSize), (self.getScreenWidth(), row * self.boxSize))
         for column in range(0, self.width): # 0 10
-            pygame.draw.line(WINDOW, BLACK, (column * self.boxSize, 0), (column * self.boxSize, self.getScreenHeight()))
+            pygame.draw.line(WINDOW, color, (column * self.boxSize, 0), (column * self.boxSize, self.getScreenHeight()))
 
-    def displayBlocks(self) -> None:
+    def displayRects(self, WINDOW: Surface, color) -> None:
         # TODO
-        pass
+        for rect in self.groudedRects:
+            pygame.draw.rect(WINDOW, color, rect, width = 2, border_radius = 2, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1)
