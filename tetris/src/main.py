@@ -1,6 +1,10 @@
 import pygame
 from pygame.locals import *
 
+from Block import Block
+from Point import Point
+from Shape import Shape
+
 pygame.init()
 
 # colors
@@ -21,6 +25,9 @@ SPEED = 1000 # vitesse du deplacement vertical du block
 rectangle: Rect = pygame.Rect(10, 10, BOX_SIZE, BOX_SIZE)
 move_x: int = 50
 
+# block
+i_block = Block(Point(0, 0), Shape.I)
+
 
 def main():
     # start_time = int(time())
@@ -32,10 +39,10 @@ def main():
         # main displaying
         WINDOW.fill(WHITE)
 
-        pygame.draw.rect(WINDOW, BLACK, rectangle)
+        # block principal
+        i_block.display(WINDOW, BLACK)
         if (time == 0):
-            rectangle.y += BOX_SIZE
-
+            i_block.moveDown()
 
         # events
         for event in pygame.event.get():
@@ -43,9 +50,11 @@ def main():
             if (event.type == pygame.KEYDOWN):
                 print("KEYDOWN")
                 if (event.key == pygame.K_q):
-                    rectangle.x -= BOX_SIZE
+                    # rectangle.x -= BOX_SIZE
+                    i_block.moveLeft()
                 if (event.key == pygame.K_d):
-                    rectangle.x += BOX_SIZE
+                    # rectangle.x += BOX_SIZE
+                    i_block.moveRight()
 
             # quit
             if event.type == pygame.QUIT:

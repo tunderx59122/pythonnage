@@ -18,8 +18,17 @@ class Block:
 
     def display(self, WINDOW, color) -> None:
         for rect in self.rects:
-            pygame.draw.rect(WINDOW, color, rect)
+            # pygame.draw.rect(WINDOW, color, rect)
+            pygame.draw.rect(WINDOW, color, rect, width = 2, border_radius = 2, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1)
 
     def moveDown(self) -> None:
         for rect in self.rects:
             rect.y += self.boxSize
+
+    def moveRight(self) -> None:
+        for rect in self.rects:
+            rect.x += self.boxSize
+    
+    def moveLeft(self) -> None:
+        for rect in self.rects:
+            rect.x -= self.boxSize
