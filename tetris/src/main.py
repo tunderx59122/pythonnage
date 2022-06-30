@@ -31,7 +31,8 @@ pygame.display.set_caption("Tetris")
 # move_x: int = 50
 
 # block
-i_block = Block(Point(0, 0), Shape.I)
+# i_block = Block(Point(0, 0), Shape.I)
+i_block = Block(Point(0, 0), Shape.Z)
 
 def main():
     # start_time = int(time())
