@@ -29,13 +29,13 @@ class Block:
                 return False
         return True
 
-    def canMoveRight(self, WIDTH: int) -> bool:
+    def canMoveRight(self, grid: Grid) -> bool:
         for rect in self.rects:
-            if (rect.x + self.boxSize >= WIDTH):
+            if (rect.x + self.boxSize >= grid.getScreenWidth()):
                 return False
         return True
 
-    def canMoveLeft(self, WIDTH: int) -> bool:
+    def canMoveLeft(self, grid: Grid) -> bool:
         for rect in self.rects:
             if (rect.x <= 0):
                 return False

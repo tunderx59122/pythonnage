@@ -22,3 +22,7 @@ class Grid:
             pygame.draw.line(WINDOW, BLACK, (0, row * self.boxSize), (self.getScreenWidth(), row * self.boxSize))
         for column in range(0, self.width): # 0 10
             pygame.draw.line(WINDOW, BLACK, (column * self.boxSize, 0), (column * self.boxSize, self.getScreenHeight()))
+
+    def displayBlocks(self) -> None:
+        # TODO
+        pass

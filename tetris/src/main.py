@@ -61,10 +61,10 @@ def main():
             # keys
             if (event.type == pygame.KEYDOWN):
                 if (event.key == pygame.K_q):
-                    if (i_block.canMoveLeft(WIDTH)):
+                    if (i_block.canMoveLeft(grid)):
                         i_block.moveLeft()
                 if (event.key == pygame.K_d):
-                    if (i_block.canMoveRight(WIDTH)):
+                    if (i_block.canMoveRight(grid)):
                         i_block.moveRight()
 
             # quit
