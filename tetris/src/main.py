@@ -25,16 +25,8 @@ grid: Grid = Grid(BOX_SIZE, WIDTH, HEIGHT)
 WINDOW = pygame.display.set_mode((grid.getScreenWidth(), grid.getScreenHeight()))
 pygame.display.set_caption("Tetris")
 
-
-# rects
-# rectangle: Rect = pygame.Rect(10, 10, BOX_SIZE, BOX_SIZE)
-# move_x: int = 50
-
-# block
-# i_block = Block(Point(0, 0), Shape.I)
-i_block = Block(Point(0, 0), Shape.Z)
-
 def main():
+    currentBlock = Block(Point(0, 0), Shape.getRandomShape())
     # start_time = int(time())
     # time:int = int(thread_time())
     time: int = 0
@@ -49,16 +41,17 @@ def main():
         grid.displayRects(WINDOW, BLACK)
 
         # current block
-        i_block.display(WINDOW, BLACK)
+        currentBlock.display(WINDOW, BLACK)
 
 
         # tout les x sec: descendre le block
         if (time == 0):
-            if (i_block.canMoveDown(grid)):
-                i_block.moveDown()
+            if (currentBlock.canMoveDown(grid)):
+                currentBlock.moveDown()
             else:
                 # ground tout les rects du block O sol
-                i_block.ground(grid)
+                currentBlock.ground(grid)
+                currentBlock = Block(Point(0, 0), Shape.getRandomShape())
 
 
         # events
@@ -66,11 +59,11 @@ def main():
             # keys
             if (event.type == pygame.KEYDOWN):
                 if (event.key == pygame.K_q):
-                    if (i_block.canMoveLeft(grid)):
-                        i_block.moveLeft()
+                    if (currentBlock.canMoveLeft(grid)):
+                        currentBlock.moveLeft()
                 if (event.key == pygame.K_d):
-                    if (i_block.canMoveRight(grid)):
-                        i_block.moveRight()
+                    if (currentBlock.canMoveRight(grid)):
+                        currentBlock.moveRight()
 
             # quit
             if event.type == pygame.QUIT:

@@ -1,5 +1,5 @@
-from pygame import *
 import pygame
+from pygame import *
 
 # from Block import Block
 # from Point import Point

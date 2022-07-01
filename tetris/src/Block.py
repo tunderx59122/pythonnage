@@ -5,6 +5,8 @@ from Point import Point
 from Shape import Shape
 from Grid import Grid
 
+def collidesDown(topRect: Rect, botRect: Rect) -> bool:
+    return ((topRect.y + topRect.width >= botRect.y - 1) and (topRect.x == botRect.x))
 
 class Block:
     def __init__(self, topLeft: Point, shape: Shape, boxSize = 50) -> None:
@@ -58,12 +60,26 @@ class Block:
         for rect in self.rects:
             # pygame.draw.rect(WINDOW, color, rect)
             pygame.draw.rect(WINDOW, color, rect, width = 2, border_radius = 2, border_top_left_radius=-1, border_top_right_radius=-1, border_bottom_left_radius=-1, border_bottom_right_radius=-1)
-
         
+    def hasGroundedNeihbours(self, grid: Grid):
+        for rect in grid.groudedRects:
+            for rect2 in self.rects:
+                if (collidesDown(rect2, rect)):
+                    return True
+        return False
+                # print(rect2.y + rect2.width >= rect.y - 1)
+            
+
+
     def canMoveDown(self, grid: Grid) -> bool:
         for rect in self.rects:
             if (rect.y + self.boxSize >= grid.getScreenHeight()):
                 return False
+            
+            # tester si les blocks alentours sont empty
+            if (self.hasGroundedNeihbours(grid)):
+                return False
+
         return True
 
     def canMoveRight(self, grid: Grid) -> bool:
