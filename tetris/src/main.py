@@ -26,7 +26,7 @@ WINDOW = pygame.display.set_mode((grid.getScreenWidth(), grid.getScreenHeight())
 pygame.display.set_caption("Tetris")
 
 def main():
-    currentBlock = Block(Point(0, 0), Shape.I)
+    currentBlock = Block(Point(0, 0), Shape.T)
     # start_time = int(time())
     # time:int = int(thread_time())
     time: int = 0
@@ -51,19 +51,28 @@ def main():
             else:
                 # ground tout les rects du block O sol
                 currentBlock.ground(grid)
-                currentBlock = Block(Point(0, 0), Shape.I)
+                currentBlock = Block(Point(0, 0), Shape.T)
 
 
         # events
         for event in pygame.event.get():
             # keys
             if (event.type == pygame.KEYDOWN):
+                # move left/right
                 if (event.key == pygame.K_q):
                     if (currentBlock.canMoveLeft(grid)):
                         currentBlock.moveLeft()
                 if (event.key == pygame.K_d):
                     if (currentBlock.canMoveRight(grid)):
                         currentBlock.moveRight()
+                # roll left/right
+                if (event.key == pygame.K_a):
+                    pass
+                    # roll left
+                if (event.key == pygame.K_e):
+                    # roll right
+                    print("pressed")
+                    currentBlock.rollRight()
 
             # quit
             if event.type == pygame.QUIT:

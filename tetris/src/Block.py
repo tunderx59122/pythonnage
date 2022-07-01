@@ -18,10 +18,27 @@ def collidesRight(leftRect: Rect, rightRect: Rect) -> bool:
         return False
     return ((leftRect.x + leftRect.width >= rightRect.x - 1) and (leftRect.y == rightRect.y)) 
 
+def moveRect(rect: Rect, plusX: int, plusY: int) -> None:
+    rect.x += plusX
+    rect.y += plusY
+
+def moveTopRight(rect: Rect, boxSize: int) -> None:
+    moveRect(rect, boxSize * 1, -boxSize * 1)
+def moveBotRight(rect: Rect, boxSize: int) -> None:
+    moveRect(rect, boxSize * 1, boxSize * 1)
+def moveBotLeft(rect: Rect, boxSize: int) -> None:
+    moveRect(rect, -boxSize * 1, boxSize * 1)
+def moveTopLeft(rect: Rect, boxSize: int) -> None:
+    moveRect(rect, -boxSize * 1, -boxSize * 1)
+
 class Block:
     def __init__(self, topLeft: Point, shape: Shape, boxSize = 50) -> None:
         self.boxSize = boxSize
         self.rects: list[Rect] = []
+
+        self.shape: Shape = shape
+
+        self.rollIndex = 0 # int allant de 0 a 3 determinant la position de la rotation du block
 
         if (shape == Shape.I):
             self.rects.append(Rect(topLeft.getX(), topLeft.getY() + boxSize * 0, boxSize, boxSize))
@@ -128,3 +145,29 @@ class Block:
         for rect in self.rects:
             grid.groudedRects.append(rect)
         self.rects.clear()
+
+    def rollRight(self) -> None:
+        if (self.shape == Shape.T):
+            if (self.rollIndex == 0):
+                moveTopRight(self.rects[1], self.boxSize)
+                moveBotRight(self.rects[0], self.boxSize)
+                moveBotLeft(self.rects[3], self.boxSize)
+                # moveRect(self.rects[3], -self.boxSize * 1, self.boxSize * 1)
+            elif (self.rollIndex == 1):
+                moveBotRight(self.rects[1], self.boxSize)
+                moveBotLeft(self.rects[0], self.boxSize)
+                moveTopLeft(self.rects[3], self.boxSize)
+            elif (self.rollIndex == 2):
+                moveBotLeft(self.rects[1], self.boxSize)
+                moveTopLeft(self.rects[0], self.boxSize)
+                moveTopRight(self.rects[3], self.boxSize)
+            elif (self.rollIndex == 3):
+                moveTopLeft(self.rects[1], self.boxSize)
+                moveTopRight(self.rects[0], self.boxSize)
+                moveBotRight(self.rects[3], self.boxSize)
+            # !!!! attention aux formes redondantes e.g le I a 2 etats donc test rollIndex == 0 ou 2
+            self.rollIndex = (self.rollIndex + 1) % 4
+
+    
+    def rollLeft() -> None:
+        pass
