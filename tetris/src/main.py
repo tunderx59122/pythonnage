@@ -26,7 +26,7 @@ WINDOW = pygame.display.set_mode((grid.getScreenWidth(), grid.getScreenHeight())
 pygame.display.set_caption("Tetris")
 
 def main():
-    currentBlock = Block(Point(0, 0), Shape.getRandomShape())
+    currentBlock = Block(Point(0, 0), Shape.I)
     # start_time = int(time())
     # time:int = int(thread_time())
     time: int = 0
@@ -51,7 +51,7 @@ def main():
             else:
                 # ground tout les rects du block O sol
                 currentBlock.ground(grid)
-                currentBlock = Block(Point(0, 0), Shape.getRandomShape())
+                currentBlock = Block(Point(0, 0), Shape.I)
 
 
         # events

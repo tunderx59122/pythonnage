@@ -6,7 +6,17 @@ from Shape import Shape
 from Grid import Grid
 
 def collidesDown(topRect: Rect, botRect: Rect) -> bool:
-    return ((topRect.y + topRect.width >= botRect.y - 1) and (topRect.x == botRect.x))
+    return ((topRect.y + topRect.height >= botRect.y - 1) and (topRect.x == botRect.x))
+
+def collidesLeft(rightRect: Rect, leftRect: Rect) -> bool:
+    if (rightRect.x < leftRect.x):
+        return False
+    return ((rightRect.x <= leftRect.x + leftRect.width + 1) and (leftRect.y == rightRect.y))
+
+def collidesRight(leftRect: Rect, rightRect: Rect) -> bool:
+    if (leftRect.x > rightRect.x):
+        return False
+    return ((leftRect.x + leftRect.width >= rightRect.x - 1) and (leftRect.y == rightRect.y)) 
 
 class Block:
     def __init__(self, topLeft: Point, shape: Shape, boxSize = 50) -> None:
@@ -67,7 +77,6 @@ class Block:
                 if (collidesDown(rect2, rect)):
                     return True
         return False
-                # print(rect2.y + rect2.width >= rect.y - 1)
             
 
 
@@ -86,12 +95,21 @@ class Block:
         for rect in self.rects:
             if (rect.x + self.boxSize >= grid.getScreenWidth()):
                 return False
+
+            for rect2 in grid.groudedRects:
+                if (collidesRight(rect, rect2)):
+                    return False
         return True
 
     def canMoveLeft(self, grid: Grid) -> bool:
         for rect in self.rects:
             if (rect.x <= 0):
                 return False
+            
+            for rect2 in grid.groudedRects:
+                if (collidesLeft(rect, rect2)):
+                    return False
+            
         return True
 
     def moveDown(self) -> None:
